@@ -1,0 +1,45 @@
+<% @question.choices.each do |choice| %>
+  <%= turbo_stream.replace "answers_#{choice}_label" do %>
+    <div class="label cursor-pointer gap-4 flex items-center has_checkbox">
+      <% if @select_answers.include?(choice) %>
+        <span class="btn btn-block bg-white text-primary text-xl fonr-semibold border-primary no-animation"><%= choice %></span>
+      <% else %>
+        <span class="btn btn-block text-xl fonr-semibold no-animation"><%= choice %></span>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+
+<%= turbo_stream.remove "answer_submit" %>
+
+<%= turbo_stream.replace 'answer' do %>
+  <div class="container mx-auto px-4 py-8">
+    <div class="max-w-3xl mx-auto">
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+          <% if @is_correct %>
+            <h2 class="card-title text-2xl font-bold mb-8 text-sky-500 text-center block">正解</h2>
+          <% else %>
+            <h2 class="card-title text-2xl font-bold mb-8 text-red-500 text-center block">不正解</h2>
+            <p class="text-xl font-semibold text-red-500">正解:
+              <% @question.answers.each_with_index do |answer, index| %>
+                <%= answer %>&nbsp;
+              <% end %>
+            </p>
+          <% end %>
+          <div>
+            <%= simple_format(@question.explain) %>
+          </div>
+
+          <div class="card-actions justify-center mt-8">
+            <% if @question.id < @questions_count %>
+              <%= link_to '次の問題', new_quiz_path(count: @question.id + 1), class: "btn btn-secondary btn-lg px-8 py-3 text-lg shadow-lg hover:shadow-2xl transition-transform transform hover:scale-105" %>
+            <% else %>
+              <%= link_to '結果', quizzes_path, class: "btn btn-secondary btn-lg px-8 py-3 text-lg shadow-lg hover:shadow-2xl transition-transform transform hover:scale-105" %>
+            <% end %>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

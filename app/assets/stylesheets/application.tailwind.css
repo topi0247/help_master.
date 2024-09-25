@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.has_checkbox input[type="checkbox"] {
+  display: none;
+}
+
+.has_checkbox:has(:checked) div {
+  color: #fc7400;
+  background-color: #fff;
+  border: 1px solid #fc7400;
+}
