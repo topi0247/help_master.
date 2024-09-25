@@ -21,6 +21,7 @@
             <h2 class="card-title text-2xl font-bold mb-8 text-sky-500 text-center block">正解</h2>
           <% else %>
             <h2 class="card-title text-2xl font-bold mb-8 text-red-500 text-center block">不正解</h2>
+            <p>正解は・・・</p>
             <ul class="text-xl font-semibold text-red-500 flex flex-col items-start list-disc ml-8">
               <% @question.answers.each_with_index do |answer, index| %>
                 <li><%= answer %></li>
